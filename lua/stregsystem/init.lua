@@ -19,11 +19,9 @@ end
 
 local function try(f)
 	local success, result = pcall(f)
-
-	if not success then
-		return nil
+	if success then
+		return result
 	end
-	return result
 end
 
 -- Function to get user ID from username
