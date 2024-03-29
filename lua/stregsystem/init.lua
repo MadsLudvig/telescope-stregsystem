@@ -55,12 +55,33 @@ local function buy_product(username, member_id, selection)
 
 	local result = execute_command(
 		string.format(
-			[[curl --location 'https://stregsystem.fklub.dk/api/sale' --header 'Content-Type: application/json' --data '%s']],
+			[[curl -s --location 'https://stregsystem.fklub.dk/api/sale' --header 'Content-Type: application/json' --data '%s']],
 			request_body
 		)
 	)
 
-	print(string.format("%s(%d) købte %s for %s", username, member_id, selection.name, selection.cost))
+	result = vim.json.decode(result)
+
+	if result.status == 200 then
+		local message = ""
+		message = message
+			.. string.format(
+				"telescope-stregsystem: %s(%d) købte %s for %s",
+				username,
+				member_id,
+				selection.name,
+				selection.cost
+			)
+		if result.values.caffeine ~= 0 then
+			message = message .. string.format("\nDu har %.2fmg koffein i blodet", result.values.caffeine)
+		end
+		if result.values.promille ~= 0.0 then
+			message = message .. string.format("\nDu har %.2f‰ alkohol i blodet", result.values.promille)
+		end
+		vim.notify(message, vim.log.levels.INFO)
+	else
+		vim.notify("telescope-stregsystem: Der skete en fejl", vim.log.levels.ERROR)
+	end
 end
 
 -- Function to fetch products list
