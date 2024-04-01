@@ -6,6 +6,8 @@ local conf = require("telescope.config").values
 local actions = require("telescope.actions")
 local action_state = require("telescope.actions.state")
 --
+local title = "telescope-stregsystem"
+
 stregsystem.setup = function(opts)
 	stregsystem.config = opts or {}
 end
@@ -69,9 +71,9 @@ local function buy_product(username, member_id, selection)
 		if result.values.promille ~= 0.0 then
 			message = message .. string.format("\n── du har %.2f‰ alkohol i blodet", result.values.promille)
 		end
-		vim.notify(message, vim.log.levels.INFO)
+		vim.notify(message, vim.log.levels.INFO, { title = title })
 	else
-		vim.notify("telescope-stregsystem: Der skete en fejl", vim.log.levels.ERROR)
+		vim.notify("telescope-stregsystem: Der skete en fejl", vim.log.levels.ERROR, { title = title })
 	end
 end
 
@@ -145,10 +147,10 @@ stregsystem.stregsystem = function(opts)
 	local product_list = get_products()
 
 	if member_id == nil and product_list ~= nil then
-		vim.notify("telescope-stregsystem: Forkert brugernavn. Omkonfigurer!!", vim.log.levels.ERROR)
+		vim.notify("Forkert brugernavn. Omkonfigurer!!", vim.log.levels.ERROR, { title = title })
 		return
 	elseif member_id == nil and product_list == nil then
-		vim.notify("telescope-stregsystem: Ingen forbindelse til serveren!", vim.log.levels.WARN)
+		vim.notify("Ingen forbindelse til serveren!", vim.log.levels.WARN, { title = title })
 		return
 	end
 
