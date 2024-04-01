@@ -59,24 +59,15 @@ local function buy_product(username, member_id, selection)
 			request_body
 		)
 	)
-
 	result = vim.json.decode(result)
 
 	if result.status == 200 then
-		local message = ""
-		message = message
-			.. string.format(
-				"telescope-stregsystem: %s(%d) købte %s for %s",
-				username,
-				member_id,
-				selection.name,
-				selection.cost
-			)
+		local message = string.format("%s købte %s for %s", username, selection.name, selection.cost)
 		if result.values.caffeine ~= 0 then
-			message = message .. string.format("\nDu har %.2fmg koffein i blodet", result.values.caffeine)
+			message = message .. string.format("\n── du har %.1fmg koffein i blodet", result.values.caffeine)
 		end
 		if result.values.promille ~= 0.0 then
-			message = message .. string.format("\nDu har %.2f‰ alkohol i blodet", result.values.promille)
+			message = message .. string.format("\n── du har %.2f‰ alkohol i blodet", result.values.promille)
 		end
 		vim.notify(message, vim.log.levels.INFO)
 	else
