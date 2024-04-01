@@ -41,5 +41,5 @@ return {
 }
 ```
 ## Ansvarsfraskrivelse
-Det er vigtigt at være opmærksom på, at Felescope ikke er officielt godkendt af F-Klubben, og det anvendes derfor på eget ansvar.
+Det er vigtigt at være opmærksom på, at dette plugin ikke er officielt godkendt af F-Klubben, og det anvendes derfor på eget ansvar.
 Jeg fraskriver mig ethvert ansvar for fejlkøb eller utilsigtede handlinger, der måtte opstå ved brugen af dette plugin.
