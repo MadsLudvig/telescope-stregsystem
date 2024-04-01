@@ -57,6 +57,7 @@ local function buy_product(username, member_id, selection)
 			string.format(
 				[[curl -s --location 'https://stregsystem.fklub.dk/api/sale' --header 'Content-Type: application/json' --data '%s']],
 				request_body
+			)
 		)
 		local data = vim.json.decode(result)
 
@@ -78,12 +79,16 @@ end
 -- Function to fetch products list
 local function get_products()
 	return try(function()
-		local json_data =
+		local result =
 			execute_command([[curl -s -X GET "https://stregsystem.fklub.dk/api/products/active_products?room_id=10"]])
-		local decoded_data = vim.json.decode(json_data)
-		local products = {}
+		local data = vim.json.decode(result)
 
-		for key, value in pairs(decoded_data) do
+		if data == nil then
+			return nil
+		end
+
+		local products = {}
+		for key, value in pairs(data) do
 			local product_name = value[1]
 			product_name = string.lower(product_name:gsub("<[^>]+>", ""))
 			product_name = product_name:match("^%s*(.-)%s*$")
@@ -160,7 +165,7 @@ stregsystem.stregsystem = function(opts)
 				entry_maker = make_entry(opts, product_list),
 			}),
 			sorter = conf.generic_sorter(opts),
-			attach_mappings = function(bufnr, map)
+			attach_mappings = function(bufnr, _)
 				actions.select_default:replace(function()
 					actions.close(bufnr)
 					local selection = action_state.get_selected_entry()
