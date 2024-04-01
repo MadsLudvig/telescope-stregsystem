@@ -1,14 +1,14 @@
 
-# 🔭 Telescope-StregSystem
-[Telescope](https://github.com/nvim-telescope/telescope.nvim) extension til [F-Klubbens StregSystem](https://github.com/f-klubben/stregsystemet)
+# 🔭 Telescope-Stregsystem
+[Telescope](https://github.com/nvim-telescope/telescope.nvim) extension for [F-Klubbens StregSystem](https://github.com/f-klubben/stregsystemet)
 
 ![demo](assets/demo.gif)
-## Krav
+## Requirements
 - [telescope.nvim](https://github.com/nvim-telescope/telescope.nvim)
 - [curl](https://curl.se/)
 - [nvim.notify](https://github.com/rcarriga/nvim-notify)
 
-## Minimal Telescope Konfiguration
+## Minimal Telescope Configuration
 Via [lazy.nvim](https://github.com/folke/lazy.nvim)
 
 ```lua
@@ -31,7 +31,7 @@ return {
       require("telescope").setup({
         extensions = {
           ["stregsystem"] = {
-            username = "INDSÆT_STREGSYSTEM_BRUGERNAVN_HER",
+            username = "INSERT_STREGSYSTEM_USERNAME_HERE",
           },
         },
       })
@@ -40,6 +40,6 @@ return {
   },
 }
 ```
-## Ansvarsfraskrivelse
-Det er vigtigt at være opmærksom på, at dette plugin ikke er officielt godkendt af F-Klubben, og det anvendes derfor på eget ansvar.
-Jeg fraskriver mig ethvert ansvar for fejlkøb eller utilsigtede handlinger, der måtte opstå ved brugen af dette plugin.
+## Disclaimer
+It is important to be aware that this plugin is not officially approved by F-Klubben, and therefore it is used at your own risk. 
+I disclaim any responsibility for mistaken purchases or unintended actions that may arise from the use of this plugin.
