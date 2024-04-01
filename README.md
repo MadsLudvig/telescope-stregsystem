@@ -1,5 +1,5 @@
 <!-- TODO: Write introduction, installation guide, mp4 preview -->
-# telescope-stregsystem
+# 🔭 Felescope
 [Telescope](https://github.com/nvim-telescope/telescope.nvim) extension til [f-klubbens stregystem](https://github.com/f-klubben/stregsystemet)
 
 ![demo](assets/demo.gif)
@@ -17,7 +17,7 @@ return {
     "nvim-telescope/telescope.nvim",
     dependencies = {
       {
-        "madsludvig/telescope-stregsystem",
+        "madsludvig/felescope",
         dependencies = {
           "rcarriga/nvim-notify",
         },
