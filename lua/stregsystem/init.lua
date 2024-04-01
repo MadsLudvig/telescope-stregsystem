@@ -6,7 +6,7 @@ local conf = require("telescope.config").values
 local actions = require("telescope.actions")
 local action_state = require("telescope.actions.state")
 --
-local title = "telescope-stregsystem"
+local title = "Felescope"
 
 stregsystem.setup = function(opts)
 	stregsystem.config = opts or {}
