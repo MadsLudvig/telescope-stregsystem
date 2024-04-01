@@ -28,53 +28,51 @@ end
 
 -- Function to get user ID from username
 local function get_member_id(username)
-	local result = execute_command(
-		string.format([[curl -s -X GET "https://stregsystem.fklub.dk/api/member/get_id?username=%s"]], username)
-	)
-
 	return try(function()
+		local result = execute_command(
+			string.format([[curl -s -X GET "https://stregsystem.fklub.dk/api/member/get_id?username=%s"]], username)
+		)
 		return vim.json.decode(result).member_id
 	end)
 end
 
 -- Function to get user balance
 local function get_balance(member_id)
-	local result = execute_command(
-		string.format([[curl -s -X GET "https://stregsystem.fklub.dk/api/member/balance?member_id=%s"]], member_id)
-	)
 	return try(function()
-		result = vim.json.decode(result)
-		return tostring(tonumber(result.balance) / 100)
+		local result = execute_command(
+			string.format([[curl -s -X GET "https://stregsystem.fklub.dk/api/member/balance?member_id=%s"]], member_id)
+		)
+		return tostring(tonumber(vim.json.decode(result).balance) / 100)
 	end)
 end
 -- Function to buy a product
 local function buy_product(username, member_id, selection)
-	local request_body = vim.fn.json_encode({
-		room = 10,
-		buystring = username .. " " .. selection.id,
-		member_id = member_id,
-	})
-
-	local result = execute_command(
-		string.format(
-			[[curl -s --location 'https://stregsystem.fklub.dk/api/sale' --header 'Content-Type: application/json' --data '%s']],
-			request_body
+	try(function()
+		local request_body = vim.fn.json_encode({
+			room = 10,
+			buystring = username .. " " .. selection.id,
+			member_id = member_id,
+		})
+		local result = execute_command(
+			string.format(
+				[[curl -s --location 'https://stregsystem.fklub.dk/api/sale' --header 'Content-Type: application/json' --data '%s']],
+				request_body
 		)
-	)
-	result = vim.json.decode(result)
+		local data = vim.json.decode(result)
 
-	if result.status == 200 then
-		local message = string.format("%s købte %s for %s", username, selection.name, selection.cost)
-		if result.values.caffeine ~= 0 then
-			message = message .. string.format("\n── du har %.1fmg koffein i blodet", result.values.caffeine)
+		if data.status == 200 then
+			local message = string.format("%s købte %s for %s", username, selection.name, selection.cost)
+			if data.values.caffeine ~= 0 then
+				message = message .. string.format("\n── du har %.1fmg koffein i blodet", data.values.caffeine)
+			end
+			if data.values.promille ~= 0.0 then
+				message = message .. string.format("\n── du har %.2f‰ alkohol i blodet", data.values.promille)
+			end
+			vim.notify(message, vim.log.levels.INFO, { title = title })
+		else
+			vim.notify("telescope-stregsystem: Der skete en fejl", vim.log.levels.ERROR, { title = title })
 		end
-		if result.values.promille ~= 0.0 then
-			message = message .. string.format("\n── du har %.2f‰ alkohol i blodet", result.values.promille)
-		end
-		vim.notify(message, vim.log.levels.INFO, { title = title })
-	else
-		vim.notify("telescope-stregsystem: Der skete en fejl", vim.log.levels.ERROR, { title = title })
-	end
+	end)
 end
 
 -- Function to fetch products list
