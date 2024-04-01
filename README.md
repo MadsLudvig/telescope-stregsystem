@@ -17,7 +17,7 @@ return {
     "nvim-telescope/telescope.nvim",
     dependencies = {
       {
-        "madsludvig/felescope",
+        "madsludvig/telescope-stregsystem",
         dependencies = {
           "rcarriga/nvim-notify",
         },
