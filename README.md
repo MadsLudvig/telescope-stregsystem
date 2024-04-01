@@ -1,5 +1,5 @@
 
-# 🔭 Telescope-stregsystem
+# 🔭 Telescope-StregSystem
 [Telescope](https://github.com/nvim-telescope/telescope.nvim) extension til [F-Klubbens StregSystem](https://github.com/f-klubben/stregsystemet)
 
 ![demo](assets/demo.gif)
