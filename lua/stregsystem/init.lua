@@ -9,7 +9,10 @@ local action_state = require("telescope.actions.state")
 local title = "telescope-stregsystem"
 
 stregsystem.setup = function(opts)
-	stregsystem.config = opts or {}
+	stregsystem.config = {
+		endpoint = opts.endpoint or "https://stregsystem.fklub.dk/api/",
+		username = opts.username or "",
+	}
 end
 
 local function execute_command(command)
@@ -30,7 +33,7 @@ end
 local function get_member_id(username)
 	return try(function()
 		local result = execute_command(
-			string.format([[curl -s -X GET "https://stregsystem.fklub.dk/api/member/get_id?username=%s"]], username)
+			string.format([[curl -s -X GET "%smember/get_id?username=%s"]], stregsystem.config.endpoint, username)
 		)
 		return vim.json.decode(result).member_id
 	end)
@@ -40,7 +43,7 @@ end
 local function get_balance(member_id)
 	return try(function()
 		local result = execute_command(
-			string.format([[curl -s -X GET "https://stregsystem.fklub.dk/api/member/balance?member_id=%s"]], member_id)
+			string.format([[curl -s -X GET "%smember/balance?member_id=%s"]], stregsystem.config.endpoint, member_id)
 		)
 		return tostring(tonumber(vim.json.decode(result).balance) / 100)
 	end)
@@ -55,7 +58,8 @@ local function buy_product(username, member_id, selection)
 		})
 		local result = execute_command(
 			string.format(
-				[[curl -s --location 'https://stregsystem.fklub.dk/api/sale' --header 'Content-Type: application/json' --data '%s']],
+				[[curl -s --location '%ssale' --header 'Content-Type: application/json' --data '%s']],
+				stregsystem.config.endpoint,
 				request_body
 			)
 		)
@@ -79,8 +83,9 @@ end
 -- Function to fetch products list
 local function get_products()
 	return try(function()
-		local result =
-			execute_command([[curl -s -X GET "https://stregsystem.fklub.dk/api/products/active_products?room_id=10"]])
+		local result = execute_command(
+			string.format([[curl -s -X GET "%sproducts/active_products?room_id=10"]], stregsystem.config.endpoint)
+		)
 		local data = vim.json.decode(result)
 
 		if data == nil then
