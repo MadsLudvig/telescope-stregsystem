@@ -11,9 +11,11 @@
 ## Minimal Telescope Configuration
 Via [lazy.nvim](https://github.com/folke/lazy.nvim)
 
+This is supposed to be put in a seperate file, if you want to put it in the same file as your telescope configuration, set optional to false
 ```lua
 return {
   {
+    optional = true,
     "nvim-telescope/telescope.nvim",
     dependencies = {
       {
@@ -23,10 +25,10 @@ return {
         },
       },
     },
-    cmd = { "Telescope" },
     keys = {
       vim.keymap.set("n", "<leader>-", "<cmd>Telescope stregsystem<CR>", { desc = "[-]StregSystem" }),
     },
+
     config = function()
       require("telescope").setup({
         extensions = {
@@ -39,6 +41,7 @@ return {
     end,
   },
 }
+
 ```
 ## Disclaimer
 It is important to be aware that this plugin is not officially approved by F-Klubben, and therefore it is used at your own risk. 
