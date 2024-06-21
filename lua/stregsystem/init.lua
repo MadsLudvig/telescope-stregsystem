@@ -164,7 +164,7 @@ stregsystem.stregsystem = function(opts)
 
 	pickers
 		.new(opts, {
-			prompt_title = string.format("StregSystemet ── %s ── %s𝚏", username, balance),
+			prompt_title = string.format("StregSystemet ── %s ── %s𝓕$", username, balance),
 			finder = finders.new_table({
 				results = product_list,
 				entry_maker = make_entry(opts, product_list),
