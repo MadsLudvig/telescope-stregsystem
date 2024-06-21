@@ -73,9 +73,9 @@ local function buy_product(username, member_id, selection)
 			if data.values.promille ~= 0.0 then
 				message = message .. string.format("\n── du har %.2f‰ alkohol i blodet", data.values.promille)
 			end
-			vim.notify(message, vim.log.levels.INFO, { title = title })
+			require("notify")(message, vim.log.levels.INFO, { title = title })
 		else
-			vim.notify("telescope-stregsystem: Der skete en fejl", vim.log.levels.ERROR, { title = title })
+			require("notify")("telescope-stregsystem: Der skete en fejl", vim.log.levels.ERROR, { title = title })
 		end
 	end)
 end
@@ -155,10 +155,10 @@ stregsystem.stregsystem = function(opts)
 	local product_list = get_products()
 
 	if member_id == nil and product_list ~= nil then
-		vim.notify("Forkert brugernavn. Omkonfigurer!!", vim.log.levels.ERROR, { title = title })
+		require("notify")("Forkert brugernavn. Omkonfigurer!!", vim.log.levels.ERROR, { title = title })
 		return
 	elseif member_id == nil and product_list == nil then
-		vim.notify("Ingen forbindelse til serveren!", vim.log.levels.WARN, { title = title })
+		require("notify")("Ingen forbindelse til serveren!", vim.log.levels.WARN, { title = title })
 		return
 	end
 
