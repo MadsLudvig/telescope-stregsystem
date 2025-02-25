@@ -94,10 +94,10 @@ local function get_products()
 
 		local products = {}
 		for key, value in pairs(data) do
-			local product_name = value[1]
+			local product_name = value.name
 			product_name = string.lower(product_name:gsub("<[^>]+>", ""))
 			product_name = product_name:match("^%s*(.-)%s*$")
-			local product_price = string.format("%.2f", tonumber(value[2] / 100))
+			local product_price = string.format("%.2f", tonumber(value.price / 100))
 
 			-- Adding the formatted data to the products table
 			table.insert(products, { key, product_name, tostring(product_price) })
