@@ -8,10 +8,8 @@
 - [nvim.notify](https://github.com/rcarriga/nvim-notify)
 
 ## Installation
-Via [lazy.nvim](https://github.com/folke/lazy.nvim)
-
+With [lazy.nvim](https://github.com/folke/lazy.nvim)
 ```lua
-return {
   {
     keys = {
       {
@@ -39,7 +37,6 @@ return {
       },
     },
   },
-}
 ```
 
 ## Disclaimer
