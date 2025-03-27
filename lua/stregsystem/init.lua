@@ -138,8 +138,8 @@ stregsystem.stregsystem = function()
 		layout = {
 			layout = {
 				box = "horizontal",
-				width = 0.4,
-				height = 0.5,
+				width = 78,
+				height = 0.7,
 				{
 					box = "vertical",
 					border = "rounded",
@@ -157,7 +157,7 @@ stregsystem.stregsystem = function()
 
 			ret[#ret + 1] = { a(item.id, 4), "TelescopeResultsNumber" }
 			ret[#ret + 1] = { " │ " }
-			ret[#ret + 1] = { a(item.text, 70), "TelescopeResultsIdentifier" }
+			ret[#ret + 1] = { a(item.text, 55), "TelescopeResultsIdentifier" }
 			ret[#ret + 1] = { " │ " }
 			ret[#ret + 1] = { item.cost .. " kr", "TelescopeResultsFunction" }
 
