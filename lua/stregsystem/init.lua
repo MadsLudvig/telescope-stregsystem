@@ -69,13 +69,9 @@ local function buy_product(username, member_id, selection)
 			if data.values.promille ~= 0.0 then
 				message = message .. string.format("\n── du har %.2f‰ alkohol i blodet", data.values.promille)
 			end
-			require("notify")(message, vim.log.levels.INFO, { title = "snacks-stregsystem" })
+			vim.notify(message, "info", { title = "snacks-stregsystem" })
 		else
-			require("notify")(
-				"snacks-stregsystem: Der skete en fejl",
-				vim.log.levels.ERROR,
-				{ title = "snacks-stregsystem" }
-			)
+			vim.notify("Whoops. Shit happened", "error", { title = "snacks-stregsystem" })
 		end
 	end)
 end
@@ -121,10 +117,14 @@ stregsystem.stregsystem = function()
 	local product_list = get_products()
 
 	if member_id == nil and product_list ~= nil then
-		require("notify")("Forkert brugernavn. Omkonfigurer!!", vim.log.levels.ERROR, { title = "snacks-stregsystem" })
+		vim.notify("Hvorfor bruger du et brugernavn der ikke eksisterer?", "error", { title = "snacks-stregsystem" })
 		return
 	elseif member_id == nil and product_list == nil then
-		require("notify")("Ingen forbindelse til serveren!", vim.log.levels.WARN, { title = "snacks-stregsystem" })
+		vim.notify(
+			"Tror du ik lige du burde have internetforbindelse først?",
+			"error",
+			{ title = "snacks-stregsystem" }
+		)
 		return
 	end
 
