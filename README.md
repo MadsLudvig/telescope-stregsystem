@@ -1,5 +1,9 @@
 
-# 🔭 Telescope-Stregsystem
+# THIS PLUGIN IS DEPRECATED
+## Please use the new snacks based variant instead: [stregsystem-snacks](https://github.com/madsludvig/stregsystem-snacks)
+
+
+### 🔭 Telescope-Stregsystem
 [Telescope](https://github.com/nvim-telescope/telescope.nvim) extension for [F-Klubbens StregSystem](https://github.com/f-klubben/stregsystemet)
 
 ![demo](assets/demo.gif)
